@@ -1,0 +1,55 @@
+# Bytecode / pycache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.log
+*.sqlite3
+
+# virtual env.
+.venv/
+venv/
+
+# env. files
+.env
+.env.*
+
+# Local database
+*.db
+*.sqlite
+system_module_1/imdb.db
+
+# Temp files
+system_module_1/tmp/
+*.tsv
+*.tsv.gz
+*.zip
+*.tar.gz
+
+# Test outputs
+htmlcov/
+coverage.xml
+*.cover
+.pytest_cache/
+
+# Editor Configuration
+.vscode/
+.idea/
+
+# Docker files
+docker-compose.override.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Client files
+dist/
+build/
+
+# Develop files
+*.bak
+*.swp
+*.swo
