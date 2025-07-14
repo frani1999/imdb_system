@@ -1,11 +1,9 @@
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
 from system_module_1.models import Person, Title
 from system_module_1.db import SessionLocal
 
 
 def get_person_info(name: str) -> str | None:
-    db: Session = SessionLocal()
+    db = SessionLocal()
     person = db.query(Person).filter(Person.name.ilike(name)).first()  # f"%{name}%"
     db.close()
     if person:
@@ -17,7 +15,7 @@ def get_person_info(name: str) -> str | None:
 
 
 def get_film_info(title: str) -> str | None:
-    db: Session = SessionLocal()
+    db = SessionLocal()
     film = db.query(Title).filter(Title.title.ilike(title)).first()  # f"%{title}%"
     db.close()
     if film:
