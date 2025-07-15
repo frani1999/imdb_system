@@ -1,12 +1,32 @@
-from fastapi.testclient import TestClient
-from system_module_2.server.server import app
+from system_module_2.client.client import API_REST_URL
+import requests
 
-client = TestClient(app)
+people_list = ["Marlon Brando",
+               "Richard Gere",
+               "Mel Gibson",
+               "Farah Samson",
+               "Kat Pedroso",
+               "Ella Salvador",
+               "Walter Frank",
+               "Ewan de la Motte",
+               "Yvette Allen",
+               "Juanita Allen",
+               "Alejandro Acuña Sevilla",
+               "Bill Johnson",
+               "Edmund Kirby",
+               "Steve Eat",
+               "Oscar Escobar",
+               "Mike Burdick",
+               "Jose Cardeño",
+               "Frank Holliday",
+               "Ariane Sherrod",
+               "Yang Cao"]
 
 
 def test_get_person():
-    response = client.get("/people/Bruce Lee")
-    assert response.status_code == 200
-    assert "Bruce Lee" in response.json().get("summary", "")
+    for person in people_list:
+        response = requests.get(f"{API_REST_URL}/people/{person}")
+        assert response.status_code == 200
+        assert person.lower() in response.json().get("summary", "").lower()
 
 
