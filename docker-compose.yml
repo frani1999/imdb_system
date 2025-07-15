@@ -1,0 +1,10 @@
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./system_module_1/imdb.db:/app/system_module_1/imdb.db
+    env_file:
+      - .env

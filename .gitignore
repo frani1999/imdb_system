@@ -13,7 +13,7 @@ venv/
 
 # env. files
 .env
-.env.*
+.env
 
 # Local database
 *.db

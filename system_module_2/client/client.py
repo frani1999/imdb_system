@@ -16,23 +16,31 @@ API_REST_URL = "http://localhost:8000"
 @app.command()
 def people(name: str):
     url = f"{API_REST_URL}/people/{name}"
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+    except Exception as e:
+        typer.echo("Error: " + str(e), err=True)
+        raise typer.Exit(code=1)
     if response.status_code == 200:
         data = response.json()
         print(data.get("summary") or data.get("error"))
     else:
-        print("Error:", response.text)
+        print("Error: ", response.text)
 
 
 @app.command()
 def films(title: str):
     url = f"{API_REST_URL}/films/{title}"
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+    except Exception as e:
+        typer.echo("Error: " + str(e), err=True)
+        raise typer.Exit(code=1)
     if response.status_code == 200:
         data = response.json()
         print(data.get("summary") or data.get("error"))
     else:
-        print("Error:", response.text)
+        print("Error: ", response.text)
 
 
 if __name__ == "__main__":
