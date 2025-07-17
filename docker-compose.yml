@@ -1,10 +1,30 @@
 services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: imdb_user
+      POSTGRES_PASSWORD: imdb_pass
+      POSTGRES_DB: imdb_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - imdb_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U imdb_user" ]
+      interval: 5s
+      retries: 5
+
   api:
     build:
       dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
       - "8000:8000"
     volumes:
-      - ./system_module_1/imdb.db:/app/system_module_1/imdb.db
+      - .:/app
     env_file:
       - .env
+volumes:
+  imdb_pgdata:

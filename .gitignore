@@ -11,10 +11,6 @@ __pycache__/
 .venv/
 venv/
 
-# env. files
-.env
-.env
-
 # Local database
 *.db
 *.sqlite

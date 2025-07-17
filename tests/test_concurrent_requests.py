@@ -1,7 +1,8 @@
 import unittest
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from system_module_2.client.client import API_REST_URL
 import requests
+
+API_REST_URL = "http://localhost:8000"
 
 
 class ConcurrentSessionTest(unittest.TestCase):

@@ -1,21 +1,13 @@
 import typer
 import requests
 
-'''
-python system_module_2/client/client.py people "Bruce Lee"
-# Bruce Lee was born in 1940 and was actor and producer.
-
-python system_module_2/client/client.py films "Blacksmith Scene"
-# Blacksmith Scene, originally titled 'Les forgerons', is a documentary.
-'''
-
 app = typer.Typer()
-API_REST_URL = "http://localhost:8000"
+api_url_option = typer.Option("http://localhost:8000", help="Base URL of the REST API")
 
 
 @app.command()
-def people(name: str):
-    url = f"{API_REST_URL}/people/{name}"
+def people(name: str, api_url: str = api_url_option):
+    url = f"{api_url}/people/{name}"
     try:
         response = requests.get(url)
     except Exception as e:
@@ -29,8 +21,8 @@ def people(name: str):
 
 
 @app.command()
-def films(title: str):
-    url = f"{API_REST_URL}/films/{title}"
+def films(title: str, api_url: str = api_url_option):
+    url = f"{api_url}/films/{title}"
     try:
         response = requests.get(url)
     except Exception as e:

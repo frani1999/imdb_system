@@ -15,5 +15,5 @@ def get_person_info(name: str, db: Session) -> str | None:
 def get_film_info(title: str, db: Session) -> str | None:
     film = db.query(Title).filter(Title.title.ilike(title)).first()
     if film:
-        return f"{film.title}, originally titled '{film.original_title}', is a {film.type}."
+        return f"{film.title}, originally titled '{film.original_title}', is a {film.genres}."
     return None

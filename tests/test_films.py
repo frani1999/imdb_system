@@ -1,10 +1,12 @@
-from system_module_2.client.client import API_REST_URL
 import requests
 import unittest
 
-film_list = ["Blacksmith Scene", "Cinderella", "Extraordinary Engineering", "Smoke Signal After Show",
-             "American Illuminati 2", "Chino & Nacho", "Theory", "Raghav Radio", "The Prince in the Rainforest",
-             "Nina Simone: Live in '65 & '68"]
+film_list = ["Blacksmith Scene", "The Clown Barber", "Grandes manoeuvres", "Place Saint-Augustin",
+             "Academy for Young Ladies", "Danse fleur de lotus", "Dorotea",
+             "Visita de Doña María Cristina y Alfonso XIII a Barcelona", "Beauty and the Beast",
+             "The Sign of the Cross"]
+
+API_REST_URL = "http://localhost:8000"
 
 
 class TestFilms(unittest.TestCase):

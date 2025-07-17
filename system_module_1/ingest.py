@@ -7,10 +7,8 @@ from system_module_1.db import SessionLocal, engine
 from system_module_1.models import Base, Person, Title
 
 IMDB_BASE_URL = "https://datasets.imdbws.com/"
-FILES = {
-    "name.basics.tsv.gz": "people",
-    "title.basics.tsv.gz": "titles",
-}
+
+FILES = {"name.basics.tsv.gz": "people", "title.basics.tsv.gz": "titles"}
 
 TMP_DIR = os.path.join(os.path.dirname(__file__), "tmp")
 os.makedirs(TMP_DIR, exist_ok=True)
@@ -121,5 +119,92 @@ def ingest_all():
         db.close()
 
 
+def interleaved_ingest(batch_size: int = 10000):
+    setup_database()
+    db = SessionLocal()
+    try:
+        print("Starting interleaved ingestion...")
+
+        people_file = download_file("name.basics.tsv.gz")
+        titles_file = download_file("title.basics.tsv.gz")
+
+        with gzip.open(people_file, mode='rt', encoding='utf-8') as pf, \
+             gzip.open(titles_file, mode='rt', encoding='utf-8') as tf:
+
+            people_reader = csv.DictReader(pf, delimiter='\t')
+            titles_reader = csv.DictReader(tf, delimiter='\t')
+
+            people_batch = []
+            titles_batch = []
+            people_count = 0
+            titles_count = 0
+
+            while True:
+                try:
+                    person_row = next(people_reader)
+                    birth = int(person_row['birthYear']) if person_row['birthYear'].isdigit() else None
+                    death = int(person_row['deathYear']) if person_row['deathYear'].isdigit() else None
+                    person = Person(
+                        id=person_row['nconst'],
+                        name=person_row['primaryName'],
+                        birth_year=birth,
+                        death_year=death,
+                        primary_professions=person_row['primaryProfession']
+                    )
+                    people_batch.append(person)
+                    people_count += 1
+                except StopIteration:
+                    person_row = None
+
+                try:
+                    title_row = next(titles_reader)
+                    year = int(title_row['startYear']) if title_row['startYear'].isdigit() else None
+                    title = Title(
+                        id=title_row['tconst'],
+                        title=title_row['primaryTitle'],
+                        original_title=title_row['originalTitle'],
+                        year=year,
+                        genres=title_row['genres'] if title_row['genres'] != '\\N' else None,
+                        type=title_row['titleType']
+                    )
+                    titles_batch.append(title)
+                    titles_count += 1
+                except StopIteration:
+                    title_row = None
+
+                # Save batches when they reach size
+                if len(people_batch) >= batch_size:
+                    db.bulk_save_objects(people_batch)
+                    db.commit()
+                    print(f"   → {people_count} people inserted...")
+                    people_batch.clear()
+
+                if len(titles_batch) >= batch_size:
+                    db.bulk_save_objects(titles_batch)
+                    db.commit()
+                    print(f"   → {titles_count} titles inserted...")
+                    titles_batch.clear()
+
+                if person_row is None and title_row is None:
+                    break
+
+            # # Insert rest
+            if people_batch:
+                db.bulk_save_objects(people_batch)
+                db.commit()
+                print(f"   → {people_count} people inserted (final).")
+
+            if titles_batch:
+                db.bulk_save_objects(titles_batch)
+                db.commit()
+                print(f"   → {titles_count} titles inserted (final).")
+
+        print("Interleaved ingestion completed.")
+
+    finally:
+        db.close()
+
+
 if __name__ == "__main__":
-    ingest_all()
+    # ingest_all()
+    interleaved_ingest()

@@ -1,9 +1,10 @@
-from system_module_2.client.client import API_REST_URL
 import requests
 import unittest
 
-people_list = ["Marlon Brando", "Mel Gibson", "Farah Samson", "Ella Salvador", "Walter Frank",
-               "Ewan de la Motte", "Yvette Allen", "Juanita Allen", "Steve Eat", "Yang Cao"]
+people_list = ["Marlon Brando", "Mel Gibson", "Frank Sinatra", "Antonio Banderas", "Charles Chaplin",
+               "Harrison Ford", "Morgan Freeman", "Michael J. Fox", "Tom Hanks", "Jennifer Lopez"]
+
+API_REST_URL = "http://localhost:8000"
 
 
 class TestPeople(unittest.TestCase):
