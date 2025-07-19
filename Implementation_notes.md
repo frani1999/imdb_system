@@ -230,16 +230,16 @@ The docker image Building shall be done in [Dockerfile](Dockerfile).
 ## 5. Future Lines
  
 [imdb_system](https://github.com/frani1999/imdb_system.git) may need the following potential improvements and fixes:
-  1. **In unit tests, set the API_REST_URL outside the code.** Now it is inside the code. The parameter can be extracted:
-     1. By setting it as an environment variable in [.env.local](.env.local) and extract with [*os*](https://docs.python.org/3/library/os.html) and [*dotenv*](https://pypi.org/project/python-dotenv/).
-     2. As a parameter in run command.
+  1. **In unit tests for endpoints, set the API_REST_URL outside the code.** Now it is inside the code. The parameter can be extracted:
+     1. By setting it as an environment variable in [.env.local](.env.local) and extract with [*os*](https://docs.python.org/3/library/os.html) and [*dotenv*](https://pypi.org/project/python-dotenv/) (similar to [db.py](system_module_1/db.py)).
+     2. As a parameter in run command (similar as [client.py](system_module_2/client/client.py)).
      ```bash
         python -m unittest tests.test_ingest --api-url http://localhost:8000
         python -m unittest tests.test_films --api-url http://localhost:8000
         python -m unittest tests.test_people --api-url http://localhost:8000
         python -m unittest tests.test_conc_requests --api-url http://localhost:8000
         ```
-  2. **Use the *TestClient* class from FastAPI in Unit Tests**
+  2. **In unit tests for endpoints, use the *TestClient* class from FastAPI.** This will make possible to run unit tests without an API REST Server previously running. Some example codes are:
 ```python
 from fastapi.testclient import TestClient
 from system_module_2.server.server import app
@@ -262,10 +262,10 @@ def test_get_film():
     assert response.status_code == 200
     assert "Blacksmith Scene" in response.json().get("summary", "")
 ```
-  3. When queries get multiples matches, now return the first march. The idea is to implement a logic depending on the other data files in https://datasets.imdbws.com/ to extract more information.
-     * `title.akas.tsv.gz`
-     * `title.crew.tsv.gz`
-     * `title.episode.tsv.gz`
-     * `title.principals.tsv.gz`
-     * `title.ratings.tsv.gz`
-  4. **Migrate REST API to HTTPS.** HTTPS via NGINX + Let's Encrypt (TLS Certificates).
+  3. **Summary request given in [queries.py](system_module_2/server/services/queries.py) can be completed with more data extracted form https://datasets.imdbws.com/.** It is possible to read and store in PostgreSQL system database more tables with different data, and search people and films information by the `id`. The other *tsv* files are:
+   * `title.akas.tsv.gz` → information about films region, language, etc.
+   * `title.crew.tsv.gz` → information about films directors and writers.
+   * `title.episode.tsv.gz` → information about episodes for TV Series.
+   * `title.principals.tsv.gz` → information about persons involved in a film.
+   * `title.ratings.tsv.gz` → information about films ratings.
+  4. **Migrate REST API to HTTPS.** HTTPS via NGINX (inverse proxy) + TLS Certificates (Let's Encrypt).
