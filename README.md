@@ -4,10 +4,10 @@
 
 This project implements a system to access IMDb data using:
 
-- Ingestion of IMDb data from https://datasets.imdbws.com into a **system Database**
-- **REST API server** to get information about films and people
-- **CLI client** to query data from **REST API server** and show the responses
-- **Docker** to have a production-ready solution that can be run anywhere
+- Ingestion of IMDb data from https://datasets.imdbws.com into a **PostgreSQL system Database**.
+- **REST API server** to get information about films and people.
+- **CLI client** to query data from **REST API server** and show the responses.
+- **Docker** to have a production-ready solution that can be run anywhere.
 
 ---
 
@@ -28,11 +28,11 @@ This project implements a system to access IMDb data using:
 
 ---
 
-## Getting Started
+## Learn More
 
 Please refer to:
 
-- [`User_documentation.md`](User_documentation.md) → How to run and use the system
-- [`Implementation_notes.md`](Implementation_notes.md) → Internal architecture and design
+- [`User_documentation.md`](User_documentation.md) → How to run and use the system.
+- [`Implementation_notes.md`](Implementation_notes.md) → Internal architecture and design.
 
 ---

@@ -63,7 +63,7 @@ docker-compose build
 # Start services
 docker-compose up -d
 ```
-After that, server will be running.
+After that, the server will run in docker.
 
 2. **Execute Ingest into docker**
 

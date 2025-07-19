@@ -123,7 +123,7 @@ The main program for system_module_2/server is [server.py](system_module_2/serve
 different types of tests have been defined for:
 
   * **Test ingestion** ([test_ingest.py](tests/test_ingest.py)).
-    * Test `load_names(...)`, `load_titles(...)` and `interleaved_ingest(...)` functions from [ingest.py](system_module_1/ingest.py)
+    * Test `load_names(...)`, `load_titles(...)` and `interleaved_ingest(...)` functions from [ingest.py](system_module_1/ingest.py).
     * **Requirements:** 
       * No requirements.
     * **Procedure:** 
