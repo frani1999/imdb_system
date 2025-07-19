@@ -3,11 +3,6 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 from dotenv import load_dotenv
 
-'''
-Execute PostGresSQL in Local not in docker
-docker run --name imdb_pg -e POSTGRES_USER=imdb_user -e POSTGRES_PASSWORD=imdb_pass -e POSTGRES_DB=imdb_db -p 5432:5432 -d postgres
-'''
-
 # Path to root directory of the project
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 

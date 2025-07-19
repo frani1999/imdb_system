@@ -119,14 +119,9 @@ def ingest_all():
         db.close()
 
 
-def interleaved_ingest(batch_size: int = 10000):
-    setup_database()
-    db = SessionLocal()
+def interleaved_ingest(db: Session, people_file: str, titles_file:str, batch_size: int = 10000):
     try:
         print("Starting interleaved ingestion...")
-
-        people_file = download_file("name.basics.tsv.gz")
-        titles_file = download_file("title.basics.tsv.gz")
 
         with gzip.open(people_file, mode='rt', encoding='utf-8') as pf, \
              gzip.open(titles_file, mode='rt', encoding='utf-8') as tf:
@@ -206,5 +201,11 @@ def interleaved_ingest(batch_size: int = 10000):
 
 
 if __name__ == "__main__":
+    # Load first people, next titles
     # ingest_all()
-    interleaved_ingest()
+    # Load interleaved between people and titles
+    setup_database()
+    db_ses = SessionLocal()
+    people_fil = download_file("name.basics.tsv.gz")
+    titles_fil = download_file("title.basics.tsv.gz")
+    interleaved_ingest(db_ses, people_fil, titles_fil)

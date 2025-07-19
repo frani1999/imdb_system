@@ -6,7 +6,7 @@ router = APIRouter()
 
 
 @router.get("/{title}")
-def read_film(title: str):
+async def read_film(title: str):
     db = SessionLocal()
     result = get_film_info(title, db)
     db.close()

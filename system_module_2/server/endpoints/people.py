@@ -6,7 +6,7 @@ router = APIRouter()
 
 
 @router.get("/{name}")
-def read_person(name: str):
+async def read_person(name: str):
     db = SessionLocal()
     result = get_person_info(name, db)
     db.close()
