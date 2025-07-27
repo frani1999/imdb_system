@@ -5,8 +5,8 @@ from system_module_1.db import SessionLocal
 router = APIRouter()
 
 
-@router.get("/{title}")
-async def read_film(title: str):
+@router.get("/{title}")  # Decorator: Add base logic for complete the function (Register endpoint)
+async def read_film(title: str):  # Async: Server can manage multiple clients (tasks) at the same time
     db = SessionLocal()
     result = get_film_info(title, db)
     db.close()

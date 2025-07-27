@@ -5,7 +5,7 @@ app = typer.Typer()
 api_url_option = typer.Option("http://localhost:8000", help="Base URL of the REST API")
 
 
-@app.command()
+@app.command()  # Decorator: Add base logic for complete the function (Manage CLI Command)
 def people(name: str, api_url: str = api_url_option):
     url = f"{api_url}/people/{name}"
     try:
@@ -20,7 +20,7 @@ def people(name: str, api_url: str = api_url_option):
         print("Error: ", response.text)
 
 
-@app.command()
+@app.command()  # Decorator: Add base logic for complete the function (Manage CLI Command)
 def films(title: str, api_url: str = api_url_option):
     url = f"{api_url}/films/{title}"
     try:

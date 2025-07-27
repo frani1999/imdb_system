@@ -97,8 +97,8 @@ def load_titles(session: Session, filepath: str, batch_size: int = 10000):
 
 def setup_database():
     print("Restarting database...")
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.drop_all(bind=engine)  # Delete all database content
+    Base.metadata.create_all(bind=engine)  # Create tables: Person, Title
     print("Database ready.")
 
 

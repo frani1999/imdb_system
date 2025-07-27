@@ -1,5 +1,5 @@
 import requests
-import unittest
+import unittest  # Python standard library for Unit Testing (pytest is external library)
 
 film_list = ["Blacksmith Scene", "The Clown Barber", "Grandes manoeuvres", "Place Saint-Augustin",
              "Academy for Young Ladies", "Danse fleur de lotus", "Dorotea",

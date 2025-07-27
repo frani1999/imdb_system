@@ -12,7 +12,7 @@ def get_person_info(name: str, db: Session) -> str | None:
             else:
                 summary += " and is "
             summary += f"{person.primary_professions.replace('_', ' ')}"
-            summary = summary[::-1].replace(',', ' dna ', 1)[::-1]
+            summary = summary[::-1].replace(',', ' dna ', 1)[::-1]  # reverse string, replace first comma by "and", reverse result
         return summary + "."
     return None
 

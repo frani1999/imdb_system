@@ -1,5 +1,5 @@
 import requests
-import unittest
+import unittest  # Python standard library for Unit Testing (pytest is external library)
 
 people_list = ["Marlon Brando", "Mel Gibson", "Frank Sinatra", "Antonio Banderas", "Charles Chaplin",
                "Harrison Ford", "Morgan Freeman", "Michael J. Fox", "Tom Hanks", "Jennifer Lopez"]

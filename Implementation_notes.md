@@ -269,3 +269,7 @@ def test_get_film():
    * `title.principals.tsv.gz` → information about persons involved in a film.
    * `title.ratings.tsv.gz` → information about films ratings.
   4. **Migrate REST API to HTTPS.** HTTPS via NGINX (inverse proxy) + TLS Certificates (Let's Encrypt).
+   * Ensures that all communication is encrypted.
+   * How to make it:
+     * Use inverse proxy ([NGINX](https://nginx.org/) or [Traefik](https://traefik.io/traefik)) in front of the API.
+     * configure a [Let's Encrypt](https://letsencrypt.org/) SSL certificate (Let's Encrypt offers free, automatically renewable certificates).

@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI  # Base library for modern APIs, support concurrency by default (with async)
 from system_module_2.server.endpoints import films, people
 
 '''

@@ -5,8 +5,8 @@ from system_module_1.db import SessionLocal
 router = APIRouter()
 
 
-@router.get("/{name}")
-async def read_person(name: str):
+@router.get("/{name}")  # Decorator: Add base logic for complete the function (Register endpoint)
+async def read_person(name: str):  # Async: Server can manage multiple clients (tasks) at the same time
     db = SessionLocal()
     result = get_person_info(name, db)
     db.close()
